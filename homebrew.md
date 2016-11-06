@@ -8,6 +8,7 @@ brew install youtube-dl
 brew install ffmpeg
 brew install coreutils
 brew install npm
+brew cask install qlimagesize
 ```
 
 ```
