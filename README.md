@@ -13,3 +13,4 @@ Everything to get a new computer setup with my workflow.
 8. [Spotify](https://www.spotify.com/us/download/mac/)
 9. [LineIn](https://rogueamoeba.com/freebies/)
 10. [Transmission](https://transmissionbt.com/download/)
+11. [Sublime Text](https://www.sublimetext.com/3)
