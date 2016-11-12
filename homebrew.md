@@ -9,6 +9,7 @@ brew install ffmpeg
 brew install coreutils
 brew install npm
 brew cask install qlimagesize
+brew install switchaudio-osx
 ```
 
 ```
