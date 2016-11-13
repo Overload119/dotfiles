@@ -1,0 +1,63 @@
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/FileName:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/MultilineOperationIndentation:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/PredicateName:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  Enabled: false
+
+Style/TrivialAccessors:
+  AllowPredicates: true
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/MethodLength:
+  Enabled: false
+  Max: 25
+
+Style/GlobalVars:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+Metrics/PerceivedComplexity:
+  Max: 14
+
+Metrics/ClassLength:
+  Enabled: false
+
+AllCops:
+  DisplayStyleGuide: true
+
+Rails:
+  Enabled: true
