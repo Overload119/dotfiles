@@ -15,6 +15,7 @@ Everything to get a new computer setup with my workflow.
 10. [Transmission](https://transmissionbt.com/download/)
 11. [Sublime Text](https://www.sublimetext.com/3)
 12. [Sequel Pro](https://www.sequelpro.com/)
+13. [VLC](https://www.videolan.org/vlc/)
 
 # command line configuration
 
