@@ -16,6 +16,7 @@ Everything to get a new computer setup with my workflow.
 11. [Sublime Text](https://www.sublimetext.com/3)
 12. [Sequel Pro](https://www.sequelpro.com/)
 13. [VLC](https://www.videolan.org/vlc/)
+14. [Day-O](http://shauninman.com/archive/2016/10/20/day_o_2_mac_menu_bar_clock)
 
 # command line configuration
 
