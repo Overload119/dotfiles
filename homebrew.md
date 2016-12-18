@@ -3,6 +3,7 @@
 `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
 ### Homebrew Packages
+
 ``` 
 brew install youtube-dl
 brew install ffmpeg
@@ -11,6 +12,7 @@ brew install npm
 brew cask install qlimagesize
 brew install switchaudio-osx
 brew install v8
+brew install terminal-notifier
 ```
 
 ```
