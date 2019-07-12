@@ -6,7 +6,7 @@ Everything to get a new computer setup with my workflow.
 1. [iTerm2](https://www.iterm2.com/downloads.html)
 2. [Alfred](https://www.alfredapp.com/)
 3. [Spectacle](https://www.spectacleapp.com/)
-4. [Flux](https://justgetflux.com/)
+4. [Iris](https://iristech.co/)
 5. [Telegram](https://macos.telegram.org/)
 6. [Skype](https://www.skype.com/en/download-skype/skype-for-mac/downloading/)
 7. [Dropbox](https://www.dropbox.com/downloading?src=index)
@@ -16,7 +16,7 @@ Everything to get a new computer setup with my workflow.
 11. [Sublime Text](https://www.sublimetext.com/3)
 12. [Sequel Pro](https://www.sequelpro.com/)
 13. [VLC](https://www.videolan.org/vlc/)
-14. [Day-O](http://shauninman.com/archive/2016/10/20/day_o_2_mac_menu_bar_clock)
+14. [Itsycal](https://www.mowglii.com/itsycal/)
 
 # command line configuration
 
