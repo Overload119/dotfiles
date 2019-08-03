@@ -4,7 +4,7 @@
 
 ### Homebrew Packages
 
-``` 
+```bash
 brew install youtube-dl
 brew install ffmpeg
 brew install coreutils
@@ -15,7 +15,7 @@ brew install v8
 brew install terminal-notifier
 brew install fzf 
 /usr/local/opt/fzf/install (install fzf extensions into zsh)
-brew install hyperfine (command line benchmarking)
+brew install hyperfine # (command line benchmarking)
 ```
 
 ```
