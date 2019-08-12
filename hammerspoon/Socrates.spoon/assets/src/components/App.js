@@ -1,5 +1,6 @@
 import React from 'react';
 import pluralize from 'pluralize';
+import { useEffect } from 'react';
 
 import getProviders from '../providers/getProviders';
 
@@ -37,8 +38,17 @@ function SelectionPreview(props) {
 }
 
 export default function App(props) {
-  const { selectedText, focusedApp } = props;
+  const { selectedText, focusedApp, emitter } = props;
   const providers = getProviders(selectedText, focusedApp);
+  useEffect(() => {
+    const unbind = emitter.on('select', index => {
+      providers[index - 1].handleSelect();
+    });
+    return function cleanup() {
+      unbind();
+    };
+  });
+
   const selectionPreview =
     selectedText !== '' ? <SelectionPreview text={selectedText} /> : null;
   return (

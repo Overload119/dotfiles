@@ -1,14 +1,20 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import NanoEvents from 'nanoevents';
 
 import App from './components/App';
 
+const emitter = new NanoEvents();
+
 window.App = {
   selectProvider: providerIndex => {
-    console.log('LUA said to pick option %s', providerIndex);
+    emitter.emit('select', providerIndex);
   },
   run: props => {
-    ReactDOM.render(<App {...props} />, document.getElementById('container'));
+    ReactDOM.render(
+      <App {...props} emitter={emitter} />,
+      document.getElementById('container')
+    );
   }
 };
 

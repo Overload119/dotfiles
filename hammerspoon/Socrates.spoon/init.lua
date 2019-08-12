@@ -62,6 +62,9 @@ obj.defaultHotkeys = {
 obj.webview = nil
 obj.userContentController = nil
 obj.quickKeys = {}
+-- we cache this instead of calling hswindow() each time.
+-- it seems to be really slow.
+obj.isVisible = false
 
 -- hs.uielement seems to be broken
 function current_selection_experimental()
@@ -91,7 +94,6 @@ function current_selection()
   hs.eventtap.keyStroke({"cmd"}, "c")
   hs.timer.usleep(2000)
   sel=hs.pasteboard.getContents()
-  hs.alert.show(sel)
   return (sel or "")
 end
 
@@ -109,11 +111,12 @@ function obj:handleBrowserCallbackEvent(event)
 end
 
 function obj:hide()
-  for k, v in ipairs(self.quickKeys) do
-    v:disable()
+  for key, listener in pairs(self.quickKeys) do
+    listener:disable()
   end
-  if self.webview:hswindow() ~= nil then
+  if self.isVisible then
     self.webview:hide()
+    self.isVisible = false
   end
 end
 
@@ -155,12 +158,20 @@ function escapeForJS(text)
 end
 
 function obj:show()
+  local text=current_selection()
+  local application=hs.application.frontmostApplication()
+
   -- Enable hotkeys.
   for k, v in ipairs(self.quickKeys) do
     v:enable()
   end
+
+  -- Center and position.
+  -- local rect = hs.geometry.rect(0, 0, self.popup_size.w, self.popup_size.h)
+  -- rect.center = hs.screen.mainScreen():frame().center
   self.webview:bringToFront():show()
-  self.webview:hswindow():move(rect)
+  -- self.webview:hswindow():move(rect)
+
   local chromeVariables = self.getChromeTabVariables()
   local title = chromeVariables[2]
   if title ~= '' then
@@ -189,14 +200,11 @@ function obj:show()
   )
   self.logger.ef("Injecting js...\n %s", js)
   self.webview:evaluateJavaScript(js)
+  self.isVisible = true
 end
 
 function obj:toggle()
-  local text=current_selection()
-  local application=hs.application.frontmostApplication()
-  local rect = hs.geometry.rect(0, 0, self.popup_size.w, self.popup_size.h)
-  rect.center = hs.screen.mainScreen():frame().center
-  if spoon.Socrates.webview:hswindow() ~= nil then
+  if self.isVisible then
     self:hide()
   else
     self:show()
@@ -252,7 +260,7 @@ end
 
 function obj:handleWatchEvent(name, event, app)
   if event == hs.application.watcher.activated and name ~= "Hammerspoon" and self.webview ~= nil then
-    self.hide()
+    self:hide()
   end
 end
 
