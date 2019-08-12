@@ -14,7 +14,16 @@ export default class GoogleProvider extends Provider {
   }
 
   getIcon() {
-    return <SearchIcon width={56} viewBox="0 0 56 56" />;
+    return (
+      <div className="icon-scaler">
+        <SearchIcon
+          className="icon"
+          preserveAspectRatio="xMidYMid meet"
+          width={'100%'}
+          viewBox="0 0 24 24"
+        />
+      </div>
+    );
   }
 
   getName() {

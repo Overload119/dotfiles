@@ -18,7 +18,9 @@ function SelectionPreview(props) {
     previewNode = (
       <div className="selection-preview small">
         {lines[0]}
-        <div className="small-dots">...</div>
+        <div className="small-dots">
+          ...{pluralize('more line', lineCount - 1, true)}...
+        </div>
         {lines[1]}
       </div>
     );
@@ -42,7 +44,7 @@ export default function App(props) {
   return (
     <div>
       {selectionPreview}
-      {providers.map((provider, index) => provider.render(index))}
+      {providers.map((provider, index) => provider.render(index + 1))}
     </div>
   );
 }

@@ -61,11 +61,21 @@ obj.defaultHotkeys = {
 -- Internal variable - the hs.webview object for the popup
 obj.webview = nil
 obj.userContentController = nil
+obj.quickKeys = {}
 
 -- hs.uielement seems to be broken
 function current_selection_experimental()
   local elem=hs.uielement.focusedElement()
   return elem:selectedText()
+end
+
+-- lua doesn't have split... wtf
+function split(s, delimiter)
+  result = {};
+  for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+    table.insert(result, match);
+  end
+  return result;
 end
 
 -- Internal function to get the currently selected text.
@@ -93,25 +103,61 @@ function obj:handleBrowserCallbackEvent(event)
     end),
   }
   if actionToMap[action] then
-    self.hide()
+    self:hide()
     actionToMap[action]()
   end
 end
 
 function obj:hide()
+  for k, v in ipairs(self.quickKeys) do
+    v:disable()
+  end
   if self.webview:hswindow() ~= nil then
     self.webview:hide()
   end
 end
 
-function obj:toggle()
-  local text=current_selection()
-  local application=hs.application.frontmostApplication()
-  local rect = hs.geometry.rect(0, 0, self.popup_size.w, self.popup_size.h)
-  rect.center = hs.screen.mainScreen():frame().center
-  if spoon.Socrates.webview:hswindow() ~= nil then
-    self.webview:hide()
-    return self
+-- The selection can be multiple lines, so this helper lets us call into JS without errors.
+-- IE:
+-- We convert
+-- this
+-- is
+-- a
+-- 'test'
+-- to
+-- 'this\n' +
+-- 'is\n' +
+-- 'a\n' +
+--'\'test\''
+
+-- In console:
+-- "this\nis\na\n'test'"
+function escapeForJS(text)
+  local lines = split(text, "\n")
+  -- Iterate through each line and escape special characters.
+  local escapedLines = {}
+  for i, line in ipairs(lines) do
+    escapedLine = line:gsub("'", "\\'")
+    table.insert(escapedLines, escapedLine)
+  end
+  -- Combine the escaped lines into 1 JS string (with escaped newlines)
+  local size = #lines
+  local jsResult = "'"
+  for i, line in ipairs(escapedLines) do
+    if i == size then
+      jsResult = jsResult..line
+    else
+      jsResult = jsResult..line.."\\n"
+    end
+  end
+  jsResult = jsResult.."'"
+  return jsResult
+end
+
+function obj:show()
+  -- Enable hotkeys.
+  for k, v in ipairs(self.quickKeys) do
+    v:enable()
   end
   self.webview:bringToFront():show()
   self.webview:hswindow():move(rect)
@@ -126,7 +172,7 @@ function obj:toggle()
   -- Add the variables to the JS page
   local js = string.format([[
     App.run({
-      selectedText: '%s',
+      selectedText: %s,
       focusedApp: {
         name: '%s',
         path: '%s',
@@ -135,7 +181,7 @@ function obj:toggle()
       },
     })
   ]],
-    string.gsub(text, "'", "\'"),
+    escapeForJS(text),
     application:name(),
     application:path(),
     title,
@@ -143,6 +189,18 @@ function obj:toggle()
   )
   self.logger.ef("Injecting js...\n %s", js)
   self.webview:evaluateJavaScript(js)
+end
+
+function obj:toggle()
+  local text=current_selection()
+  local application=hs.application.frontmostApplication()
+  local rect = hs.geometry.rect(0, 0, self.popup_size.w, self.popup_size.h)
+  rect.center = hs.screen.mainScreen():frame().center
+  if spoon.Socrates.webview:hswindow() ~= nil then
+    self:hide()
+  else
+    self:show()
+  end
   return self
 end
 
@@ -194,7 +252,13 @@ end
 
 function obj:handleWatchEvent(name, event, app)
   if event == hs.application.watcher.activated and name ~= "Hammerspoon" and self.webview ~= nil then
-    self.webview:hide()
+    self.hide()
+  end
+end
+
+function obj:handleKeyQuickPress(keyIndex)
+  if self.webview:hswindow() ~= nil then
+    self.webview:evaluateJavaScript("App.selectProvider("..keyIndex..")")
   end
 end
 
@@ -214,6 +278,16 @@ function obj:init()
 
   local url = hs.spoons.scriptPath() .. "/popup.html"
   self.webview:url('file:///' .. url)
+
+  -- Hotkeys to setup quick-tap
+  for i, v in ipairs({"1", "2", "3", "4", "5", "6"}) do
+    local hotkeyListener = hs.hotkey.bind(
+      {},
+      v,
+      hs.fnutils.partial(self.handleKeyQuickPress, self, i)
+    ):disable()
+    table.insert(self.quickKeys, hotkeyListener)
+  end
 
   hs.alert.show("Socrates!")
 end
