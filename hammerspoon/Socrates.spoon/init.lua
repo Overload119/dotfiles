@@ -65,6 +65,9 @@ obj.quickKeys = {}
 -- we cache this instead of calling hswindow() each time.
 -- it seems to be really slow.
 obj.isVisible = false
+obj.pasteBoard = hs.pasteboard.uniquePasteboard()
+
+obj.logger.ef("Using pasteboard js...\n %s", obj.pasteBoard)
 
 -- hs.uielement seems to be broken
 function current_selection_experimental()
@@ -103,6 +106,12 @@ function obj:handleBrowserCallbackEvent(event)
     ['open-web'] = (function()
       hs.urlevent.openURL(event.body.url)
     end),
+    ['insert-text'] = (function()
+      hs.eventtap.keyStrokes(event.body.text)
+    end)
+    ['send-key'] = (function()
+      hs.eventtap.keyStroke({event.body.modifier}, event.body.keys)
+    end)
   }
   if actionToMap[action] then
     self:hide()
@@ -116,6 +125,7 @@ function obj:hide()
   end
   if self.isVisible then
     self.webview:hide()
+    self.webview:evaluateJavaScript("App.updateProviderCategory('all')")
     self.isVisible = false
   end
 end
@@ -189,6 +199,8 @@ function obj:show()
         path: '%s',
         title: '%s',
         url: '%s',
+      },
+      extras: {
       },
     })
   ]],
@@ -265,9 +277,38 @@ function obj:handleWatchEvent(name, event, app)
 end
 
 function obj:handleKeyQuickPress(keyIndex)
-  if self.webview:hswindow() ~= nil then
+  if self.isVisible then
     self.webview:evaluateJavaScript("App.selectProvider("..keyIndex..")")
   end
+end
+
+function obj:handleInteractionEvent(event)
+  if event:getType() == hs.eventtap.event.types.leftMouseDown then
+    if self.isVisible then
+      self:hide()
+    end
+  elseif event:getType() == hs.eventtap.event.types.keyUp then
+    local flags = event:getFlags()
+    local isCommandDown = event:getFlags()['fn'] == true
+    if event:getFlags()['cmd'] and event:getCharacters() == "c" then
+      local contents = hs.pasteboard.getContents()
+      hs.pasteboard.setContents(contents, self.pasteBoard)
+      self.logger.ef("Tracking clipboard...\n %s", contents)
+    elseif event:getKeyCode() == 53 then
+      if self.isVisible then
+        self:hide()
+      end
+    end
+  end
+end
+
+function obj:handleCopy(event)
+  local contents = hs.pasteboard.getContents()
+  if contents == nil then
+
+  end
+  hs.pasteboard.setContents(contents, self.pasteBoard)
+  self.logger.ef("Tracking clipboard...\n %s", contents)
 end
 
 function obj:init()
@@ -296,6 +337,14 @@ function obj:init()
     ):disable()
     table.insert(self.quickKeys, hotkeyListener)
   end
+
+  -- Hotkeys for clicking
+  hs.eventtap.new(
+    {hs.eventtap.event.types.leftMouseDown, hs.eventtap.event.types.keyUp},
+    hs.fnutils.partial(self.handleInteractionEvent, self)
+  ):start()
+
+  -- Keep track of all things added to the clipboard
 
   hs.alert.show("Socrates!")
 end

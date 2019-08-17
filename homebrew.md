@@ -9,15 +9,11 @@ brew install youtube-dl
 brew install ffmpeg
 brew install coreutils
 brew install npm
-brew cask install qlimagesize
+brew cask install qlimagesize quicklook-json # quicklook extensions
 brew install switchaudio-osx
 brew install v8
 brew install terminal-notifier
-brew install fzf 
+brew install fzf
 /usr/local/opt/fzf/install (install fzf extensions into zsh)
 brew install hyperfine # (command line benchmarking)
-```
-
-```
-alias youtube-mp3='youtube-dl -x --add-metadata --audio-quality 0 --audio-format mp3'
 ```

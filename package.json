@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "nanoevents": "^2.0.0"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.105.2"
   }
 }

@@ -1,13 +1,15 @@
 import React from 'react';
+import ProviderRow from '../components/ProviderRow';
 
 export default class Provider {
-  constructor(selectedText: string, focusedApp: FocusedAppType) {
+  constructor(selectedText: string, focusedApp: FocusedAppType, extras) {
     this.selectedText = selectedText;
     this.focusedApp = focusedApp;
+    this.extras = extras;
   }
 
-  render(index): React.Node {
-    return <div>NO RENDERING</div>;
+  render(index: number): React.Node {
+    return <ProviderRow provider={this} key={index} index={index} />;
   }
 
   getSelection(): React.Node {

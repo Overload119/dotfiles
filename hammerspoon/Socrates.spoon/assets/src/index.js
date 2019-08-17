@@ -1,12 +1,13 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import NanoEvents from 'nanoevents';
+import emitter from './emitter';
 
 import App from './components/App';
 
-const emitter = new NanoEvents();
-
 window.App = {
+  updateProviderCategory: category => {
+    emitter.emit('update-provider-category', category);
+  },
   selectProvider: providerIndex => {
     emitter.emit('select', providerIndex);
   },
@@ -18,13 +19,17 @@ window.App = {
   }
 };
 
-// window.App.run({
-//   selectedText:
-//     '2019-08-11 16:33:00: -- Lazy extension loading enabled\n2019-08-11 16:33:00: -- Loading ~/.hammerspoon/init.lua\\n2019-08-11 16:33:00: -- Loading Spoon: Socrates\n2019-08-11 16:33:01: -- Loading extension: geometry\n2019-08-11 16:33:01: -- Loading extension: webview\n2019-08-11 16:33:01: -- Loading extension: logger\n2019-08-11 16:33:01: -- Loading extension: application\n2019-08-11 16:33:01: -- Loading extension: uielement\n2019-08-11 16:33:01: -- Loading extension: fnutils\n2019-08-11 16:33:01: -- Loading extension: screen\n2019-08-11 16:33:01: -- Loading extension: spoons\n2019-08-11 16:33:01: -- Loading extension: alert',
-//   focusedApp: {
-//     name: 'Hammerspoon',
-//     path: '/Applications/Hammerspoon.app',
-//     title: '',
-//     url: ''
-//   }
-// });
+/**
+ * Triggers a search manually. Add # to the URL in Safari. Useful for development.
+ */
+if (window.location.hash) {
+  window.App.run({
+    selectedText: 'spoon.Socrates.webview:hswindow()',
+    focusedApp: {
+      name: 'Hammerspoon',
+      path: '/Applications/Hammerspoon.app',
+      title: '',
+      url: ''
+    }
+  });
+}
