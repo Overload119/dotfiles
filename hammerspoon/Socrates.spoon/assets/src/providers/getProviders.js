@@ -3,9 +3,10 @@
 import GoogleProvider from './GoogleProvider';
 import MarkdownProvider from './MarkdownProvider';
 import TextTransformProvider from './TextTransformProvider';
+import typeof Provider from './Provider';
 
 import type FocusedAppType from '../types/FocusedAppType';
-import type ProviderCategory from '../types/ProviderCategory';
+import type { ProviderCategory } from '../types/ProviderCategory';
 
 type ProviderExtras = {};
 
@@ -16,7 +17,7 @@ export default function getProviders(
     clipboardData: string
   },
   category: ProviderCategory = 'all'
-) {
+): Array<Provider> {
   if (category === 'markdown') {
     return new MarkdownProvider(
       selectedText,
@@ -27,7 +28,7 @@ export default function getProviders(
   return [
     new GoogleProvider(selectedText, focusedApp, extras),
     new MarkdownProvider(selectedText, focusedApp, extras)
-  ].filter(provider => {
+  ].filter((provider: Provider) => {
     return provider.isValid();
   });
 }

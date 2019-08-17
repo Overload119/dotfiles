@@ -3,7 +3,8 @@
 import React from 'react';
 
 type Props = {
-  provider: Provider
+  provider: Provider,
+  index: number
 };
 export default function ProviderRow(props: Props) {
   return (

@@ -136,8 +136,4 @@ export default class MarkdownProvider extends Provider {
   handleSelect = () => {
     emitter.emit('update-provider-category', 'markdown');
   };
-
-  render(index: number): React$Node {
-    return <ProviderRow provider={this} key={index} index={index} />;
-  }
 }

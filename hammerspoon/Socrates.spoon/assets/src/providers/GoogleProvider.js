@@ -50,8 +50,4 @@ export default class GoogleProvider extends Provider {
       )}`
     });
   };
-
-  render(index: number): React.Node {
-    return <ProviderRow provider={this} key={index} index={index} />;
-  }
 }
