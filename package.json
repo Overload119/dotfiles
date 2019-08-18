@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "classnames": "^2.2.6",
     "nanoevents": "^2.0.0"
   },
   "devDependencies": {
