@@ -17,6 +17,7 @@ Everything to get a new computer setup with my workflow.
 12. [Sequel Pro](https://www.sequelpro.com/)
 13. [VLC](https://www.videolan.org/vlc/)
 14. [Itsycal](https://www.mowglii.com/itsycal/)
+15. [Cleanshot](https://getcleanshot.com/)
 
 # command line configuration
 
