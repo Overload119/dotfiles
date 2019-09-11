@@ -16,6 +16,7 @@ brew install terminal-notifier
 brew install fzf
 /usr/local/opt/fzf/install (install fzf extensions into zsh)
 brew install hyperfine # (command line benchmarking)
+brew install imagemagick
 ```
 
 https://github.com/jarun/imgp#installation
