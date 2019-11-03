@@ -19,3 +19,6 @@ brew install imagemagick
 ```
 
 https://github.com/jarun/imgp#installation
+
+- Exa (modern replacement for `ls`) ([source](https://github.com/ogham/exa))
+  - `brew install exa`
