@@ -23,3 +23,4 @@ https://github.com/jarun/imgp#installation
 - Exa (modern replacement for `ls`) ([source](https://github.com/ogham/exa))
   - `brew install exa`
 - bandwhich (display network utilization in terminal) [source](https://github.com/imsnif/bandwhich)
+  - `brew install bandwhich`
