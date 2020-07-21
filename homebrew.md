@@ -17,6 +17,7 @@ brew install fzf
 brew install hyperfine # (command line benchmarking)
 brew install imagemagick
 brew install meilisearch
+brew install yarn
 ```
 
 https://github.com/jarun/imgp#installation
