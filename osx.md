@@ -11,7 +11,7 @@ defaults write -g NSWindowResizeTime -float 0.001
 defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 defaults write NSGlobalDomain NSWindowResizeTime .001
 ```
-Reduce Motion in System Preferences > Accessibility
+Reduce Motion in System Preferences > Accessibility > Display
 
   
  
