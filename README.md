@@ -22,4 +22,6 @@ Everything to get a new computer setup with my workflow.
 
 # command line configuration
 
-1. [Homebrew](/homebrew.md)
+Setup your command line, including the Terminal apps I use the most.
+
+1. [Command Line](/cmdline.md)
