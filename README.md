@@ -6,7 +6,7 @@ Everything to get a new computer setup with my workflow.
 1. [iTerm2](https://www.iterm2.com/downloads.html)
 2. [Alfred](https://www.alfredapp.com/)
 3. [Rectangle](https://rectangleapp.com/): Move and resize windows in macOS using keyboard shortcuts or snap areas
-4. [Iris](https://iristech.co/)
+4. [Lunar](https://lunar.fyi/): Intelligent adaptive brightness for your external display (see also [Iris](https://iristech.co/))
 5. [Telegram](https://macos.telegram.org/)
 6. [Skype](https://www.skype.com/en/download-skype/skype-for-mac/downloading/)
 7. [Dropbox](https://www.dropbox.com/downloading?src=index)
@@ -18,6 +18,7 @@ Everything to get a new computer setup with my workflow.
 13. [VLC](https://www.videolan.org/vlc/)
 14. [Itsycal](https://www.mowglii.com/itsycal/)
 15. [Cleanshot](https://getcleanshot.com/)
+16. [Visual Studio Code - Code Editing. Redefined](https://code.visualstudio.com/)
 
 # command line configuration
 
